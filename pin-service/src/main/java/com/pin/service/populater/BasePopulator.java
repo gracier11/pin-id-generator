@@ -1,8 +1,8 @@
-package com.pin.service.impl.populater;
+package com.pin.service.populater;
 
 import com.pin.service.bean.Id;
-import com.pin.service.impl.bean.IdMeta;
-import com.pin.service.impl.util.TimeUtils;
+import com.pin.service.bean.IdMeta;
+import com.pin.service.util.TimeUtils;
 
 public abstract class BasePopulator implements IdPopulator {
     protected long sequence = 0;

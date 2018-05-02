@@ -1,8 +1,8 @@
-package com.pin.service.impl;
+package com.pin.service.core;
 
 import com.pin.service.bean.Id;
-import com.pin.service.impl.bean.IdMeta;
-import com.pin.service.impl.populater.IdPopulator;
+import com.pin.service.bean.IdMeta;
+import com.pin.service.populater.IdPopulator;
 
 public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> {
 
@@ -34,9 +34,9 @@ public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> 
 
     @Override
     public Long generate(Id id) {
-        validate(id);
-
         this.idPopulator.populateId(id, this.idMeta);
+
+        validate(id);
 
         return this._generate(id);
     }
@@ -44,7 +44,7 @@ public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> 
     private Long _generate(Id id) {
         long ret = 0;
         ret |= id.getNode();
-        ret |= id.getCluster() << idMeta.getSeqBitsStartPos();
+        ret |= id.getCluster() << idMeta.getClusterBitsStartPos();
         ret |= id.getSeq() << idMeta.getSeqBitsStartPos();
         ret |= id.getTimestamp() << idMeta.getTimestampBitsStartPos();
         return ret;
@@ -54,11 +54,11 @@ public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> 
         if(id == null) throw new IllegalArgumentException("param id can't be null");
         if(id.getTimestamp() <= 0L || id.getTimestamp() > maxTimestamp)
             throw new IllegalArgumentException("timestamp must be a positive long and can't be greater than " + maxTimestamp);
-        if(id.getSeq() <= 0L || id.getSeq() > maxSeq)
+        if(id.getSeq() < 0L || id.getSeq() > maxSeq)
             throw new IllegalArgumentException("sequence must be a positive long and can't be greater than " + maxSeq);
-        if(id.getCluster() <= 0L || id.getCluster() > maxCluster)
+        if(id.getCluster() < 0L || id.getCluster() > maxCluster)
             throw new IllegalArgumentException("cluster must be a positive long and can't be greater than " + maxCluster);
-        if(id.getNode() <= 0L || id.getNode() > maxNode)
+        if(id.getNode() < 0L || id.getNode() > maxNode)
             throw new IllegalArgumentException("node must be a positive long and can't be greater than " + maxNode);
     }
 

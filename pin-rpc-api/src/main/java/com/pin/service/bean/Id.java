@@ -56,4 +56,13 @@ public class Id implements Serializable {
         this.node = node;
     }
 
+    @Override
+    public String toString() {
+        return "Id{" +
+                "timestamp=" + timestamp +
+                ", seq=" + seq +
+                ", cluster=" + cluster +
+                ", node=" + node +
+                '}';
+    }
 }

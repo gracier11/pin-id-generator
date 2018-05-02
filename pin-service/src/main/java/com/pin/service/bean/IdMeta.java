@@ -1,4 +1,4 @@
-package com.pin.service.impl.bean;
+package com.pin.service.bean;
 
 /**
  * 0 - 00000000 00000000 00000000 00000000 00 - 00000000 00000000 0000 - 00000 - 000000

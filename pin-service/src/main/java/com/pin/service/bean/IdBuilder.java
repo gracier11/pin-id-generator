@@ -1,6 +1,4 @@
-package com.pin.service.impl;
-
-import com.pin.service.bean.Id;
+package com.pin.service.bean;
 
 public class IdBuilder {
 

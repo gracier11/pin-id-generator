@@ -1,4 +1,4 @@
-package com.pin.service.impl;
+package com.pin.service.core;
 
 public interface Generator<S,T> {
 

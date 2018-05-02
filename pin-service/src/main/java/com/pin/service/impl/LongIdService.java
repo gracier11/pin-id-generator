@@ -1,6 +1,8 @@
 package com.pin.service.impl;
 
+import com.pin.service.bean.IdBuilder;
 import com.pin.service.IdService;
+import com.pin.service.core.LongIdResolver;
 import com.pin.service.bean.Id;
 
 public class LongIdService implements IdService {

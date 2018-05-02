@@ -1,0 +1,29 @@
+spring:
+  main:
+    web-environment: false
+    banner-mode: 'off'
+  profiles:
+    active: local
+
+---
+
+spring:
+  profiles: local
+logging:
+  level:
+    root: INFO
+  file: /opt/app/log/pin_service.log
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+    check: false
+    timeout: 2000
+    file: /opt/app/.dubbo/pin-service.cache
+  protocol:
+    name: dubbo
+    host: 127.0.0.1
+    port: 20880
+    threads: 100
+  provider:
+    timeout: 2000
