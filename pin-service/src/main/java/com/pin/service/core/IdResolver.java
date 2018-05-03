@@ -4,7 +4,7 @@ import com.pin.service.bean.Id;
 import com.pin.service.bean.IdMeta;
 import com.pin.service.populater.IdPopulator;
 
-public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> {
+public class IdResolver implements Generator<Id, Long>, Extractor<Id, Long> {
 
     private IdMeta idMeta;
     private final long maxTimestamp;
@@ -14,7 +14,7 @@ public class LongIdResolver implements Generator<Id, Long>, Extractor<Id, Long> 
 
     private IdPopulator idPopulator;
 
-    public LongIdResolver(IdMeta idMeta, IdPopulator idPopulator) {
+    public IdResolver(IdMeta idMeta, IdPopulator idPopulator) {
         this.idMeta = idMeta;
         maxTimestamp = -1L ^ (-1L << idMeta.getTimestampBits());
         maxSeq = -1L ^ (-1L << idMeta.getSeqBits());

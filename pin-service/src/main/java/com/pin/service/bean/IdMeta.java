@@ -10,6 +10,13 @@ package com.pin.service.bean;
  */
 public class IdMeta {
 
+    public static void main(String[] args) {
+        System.out.println(-1L ^ (-1L << 32));
+        System.out.println(-1L ^ (-1L << 52));
+        System.out.println(-1L ^ (-1L << 63));
+        System.out.println(4294967295L/(3600*24*365));
+    }
+
     // 高位符号位固定为1位，值0
     private final byte headBits = 1;
 
