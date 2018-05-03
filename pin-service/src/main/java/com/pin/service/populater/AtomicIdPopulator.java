@@ -31,14 +31,13 @@ public class AtomicIdPopulator implements IdPopulator {
             varOld = variant.get();
 
             // populate the current variant
-            timestamp = TimeUtils.genTime();
+            timestamp = TimeUtils.currentTimeSeconds();
             TimeUtils.validateTimestamp(varOld.lastTimestamp, timestamp);
 
             sequence = varOld.sequence;
 
             if (timestamp == varOld.lastTimestamp) {
-                sequence++;
-                sequence &= idMeta.getSeqBitsMask();
+                sequence = (sequence + 1) & idMeta.getSeqBitsMask();
                 if (sequence == 0) {
                     timestamp = TimeUtils.tillNextTimeUnit(varOld.lastTimestamp);
                 }

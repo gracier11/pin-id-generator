@@ -13,7 +13,7 @@ public abstract class BasePopulator implements IdPopulator {
     }
 
     public void populateId(Id id, IdMeta idMeta) {
-        long timestamp = TimeUtils.genTime();
+        long timestamp = TimeUtils.currentTimeSeconds();
         TimeUtils.validateTimestamp(lastTimestamp, timestamp);
 
         if (timestamp == lastTimestamp) {

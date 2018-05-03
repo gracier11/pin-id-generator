@@ -26,9 +26,9 @@ public class TimeUtils {
                     .format("Ids are used out during %d. Waiting till next second/milisencond.",
                             lastTimestamp));
 
-        long timestamp = TimeUtils.genTime();
+        long timestamp = TimeUtils.currentTimeSeconds();
         while (timestamp <= lastTimestamp) {
-            timestamp = TimeUtils.genTime();
+            timestamp = TimeUtils.currentTimeSeconds();
         }
 
         if (log.isInfoEnabled())
@@ -38,7 +38,7 @@ public class TimeUtils {
         return timestamp;
     }
 
-    public static long genTime() {
+    public static long currentTimeSeconds() {
         return System.currentTimeMillis() / 1000;
     }
 

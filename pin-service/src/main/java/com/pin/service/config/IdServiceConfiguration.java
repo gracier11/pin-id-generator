@@ -1,8 +1,8 @@
 package com.pin.service.config;
 
 import com.pin.service.IdService;
-import com.pin.service.core.LongIdResolver;
-import com.pin.service.impl.LongIdService;
+import com.pin.service.core.IdResolver;
+import com.pin.service.impl.IdServiceImpl;
 import com.pin.service.bean.IdMeta;
 import com.pin.service.populater.AtomicIdPopulator;
 import com.pin.service.populater.IdPopulator;
@@ -23,12 +23,12 @@ public class IdServiceConfiguration {
     }
 
     @Bean
-    public LongIdResolver longIdResolver() {
-        return new LongIdResolver(idMeta(), idPopulator());
+    public IdResolver longIdResolver() {
+        return new IdResolver(idMeta(), idPopulator());
     }
 
     @Bean
     public IdService idService() {
-        return new LongIdService(longIdResolver());
+        return new IdServiceImpl(longIdResolver());
     }
 }
