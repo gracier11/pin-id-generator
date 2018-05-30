@@ -1,6 +1,6 @@
 package com.pin.service.core;
 
-public interface Generator<S,T> {
+public interface Generator {
 
-    T generate(S s);
+    Long generate(long cluster, long node);
 }

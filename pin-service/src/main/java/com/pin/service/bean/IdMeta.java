@@ -3,19 +3,12 @@ package com.pin.service.bean;
 /**
  * 0 - 00000000 00000000 00000000 00000000 00 - 00000000 00000000 0000 - 00000 - 000000
  * 1位高位符号位
- * 32位时间戳(秒级)
+ * 32位时间戳(秒级) 2106-02-07 14:28:15
  * 20位序列，秒内的计数，集群每个节点每秒支持1048575个序号
  * 5位集群，支持31个集群
  * 6位节点，每个集群支持63个节点
  */
 public class IdMeta {
-
-    public static void main(String[] args) {
-        System.out.println(-1L ^ (-1L << 32));
-        System.out.println(-1L ^ (-1L << 52));
-        System.out.println(-1L ^ (-1L << 63));
-        System.out.println(4294967295L/(3600*24*365));
-    }
 
     // 高位符号位固定为1位，值0
     private final byte headBits = 1;

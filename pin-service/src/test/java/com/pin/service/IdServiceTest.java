@@ -25,29 +25,6 @@ public class IdServiceTest {
     }
 
     @Test
-    public void testSeqGap() throws InterruptedException {
-        Thread[] threads = new Thread[100];
-        for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread() {
-                @Override
-                public void run() {
-                    long id = idService.generateId();
-                    Id ido = idService.extract(id);
-                    System.out.println(ido);
-                }
-            };
-        }
-
-        for (int i = 0; i < threads.length; i++) {
-            threads[i].start();
-        }
-
-        for (int i = 0; i < threads.length; i++) {
-            threads[i].join();
-        }
-    }
-
-    @Test
     public void testPerformance() throws InterruptedException {
         final long[][] times = new long[100][10000];
 
