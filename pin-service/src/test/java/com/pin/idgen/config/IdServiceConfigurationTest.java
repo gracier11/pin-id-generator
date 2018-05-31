@@ -1,6 +1,6 @@
-package com.pin.service.config;
+package com.pin.idgen.config;
 
-import com.pin.service.IdService;
+import com.pin.idgen.rpc.api.IdGenRpc;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IdServiceConfigurationTest {
 
     @Autowired
-    private IdService idService;
+    private IdGenRpc idService;
 
     @Test
     public void testConfiguration() throws Exception {

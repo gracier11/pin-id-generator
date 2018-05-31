@@ -1,8 +1,8 @@
-package com.pin.service.core;
+package com.pin.idgen.core;
 
-import com.pin.service.bean.Id;
-import com.pin.service.bean.IdMeta;
-import com.pin.service.util.TimeUtils;
+import com.pin.idgen.bean.IdMeta;
+import com.pin.idgen.rpc.api.bean.Id;
+import com.pin.idgen.util.TimeUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
 

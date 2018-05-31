@@ -1,6 +1,6 @@
-package com.pin.service;
+package com.pin.idgen;
 
-import com.pin.dubbo.DubboRunner;
+import com.pin.idgen.dubbo.DubboRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.AbstractApplicationContext;
 
 @SpringBootApplication
-@ComponentScan({"com.pin"})
+@ComponentScan({"com.pin.idgen"})
 @ImportResource({"classpath:spring-context.xml"})
 public class Application {
 

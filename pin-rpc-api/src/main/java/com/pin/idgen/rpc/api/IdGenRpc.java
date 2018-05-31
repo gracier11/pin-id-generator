@@ -1,8 +1,8 @@
-package com.pin.service;
+package com.pin.idgen.rpc.api;
 
-import com.pin.service.bean.Id;
+import com.pin.idgen.rpc.api.bean.Id;
 
-public interface IdService {
+public interface IdGenRpc {
 
     long generateId();
 

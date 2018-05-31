@@ -1,4 +1,4 @@
-package com.pin.service.bean;
+package com.pin.idgen.rpc.api.bean;
 
 import java.io.Serializable;
 

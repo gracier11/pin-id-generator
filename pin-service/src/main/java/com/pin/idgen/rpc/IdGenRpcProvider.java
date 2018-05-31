@@ -1,14 +1,14 @@
-package com.pin.service.impl;
+package com.pin.idgen.rpc;
 
-import com.pin.service.IdService;
-import com.pin.service.bean.Id;
-import com.pin.service.core.IdResolver;
+import com.pin.idgen.core.IdResolver;
+import com.pin.idgen.rpc.api.IdGenRpc;
+import com.pin.idgen.rpc.api.bean.Id;
 
-public class IdServiceImpl implements IdService {
+public class IdGenRpcProvider implements IdGenRpc {
 
     private IdResolver idResolver;
 
-    public IdServiceImpl(IdResolver idResolver) {
+    public IdGenRpcProvider(IdResolver idResolver) {
         this.idResolver = idResolver;
     }
 

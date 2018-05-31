@@ -1,4 +1,4 @@
-package com.pin.dubbo;
+package com.pin.idgen.dubbo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

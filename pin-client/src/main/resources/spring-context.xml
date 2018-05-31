@@ -18,14 +18,8 @@
             file="${dubbo.registry.file}"
     />
 
-    <dubbo:protocol name="${dubbo.protocol.name}"
-                    host="${dubbo.protocol.host}"
-                    port="${dubbo.protocol.port}"
-                    threads="${dubbo.protocol.threads}"
-    />
-
-    <dubbo:provider timeout="${dubbo.provider.timeout}" />
+    <dubbo:consumer timeout="${dubbo.consumer.timeout}" />
     <!--<dubbo:monitor protocol="registry" />-->
 
-    <dubbo:service interface="com.pin.idgen.rpc.api.IdGenRpc" ref="idGenRpc" retries="0"/>
+    <dubbo:reference id="idGenRpc" interface="com.pin.idgen.rpc.api.IdGenRpc" />
 </beans>

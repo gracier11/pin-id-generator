@@ -1,4 +1,4 @@
-package com.pin.service.core;
+package com.pin.idgen.core;
 
 public interface Generator {
 
