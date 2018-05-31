@@ -3,6 +3,7 @@ package com.pin.idgen.rpc;
 import com.pin.idgen.core.IdResolver;
 import com.pin.idgen.rpc.api.IdGenRpc;
 import com.pin.idgen.rpc.api.bean.Id;
+import org.springframework.stereotype.Component;
 
 public class IdGenRpcProvider implements IdGenRpc {
 

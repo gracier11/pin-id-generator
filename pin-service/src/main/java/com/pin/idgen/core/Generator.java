@@ -2,5 +2,11 @@ package com.pin.idgen.core;
 
 public interface Generator {
 
-    Long generate(long cluster, long node);
+    /**
+     *
+     * @param cluster 集群id
+     * @param node 节点id
+     * @return
+     */
+    long generate(long cluster, long node);
 }

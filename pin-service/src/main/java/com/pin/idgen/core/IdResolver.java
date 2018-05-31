@@ -26,7 +26,7 @@ public class IdResolver implements Generator, Extractor<Id, Long> {
     }
 
     @Override
-    public Long generate(long cluster, long node) {
+    public long generate(long cluster, long node) {
         if(cluster < 0L || cluster > idMeta.getClusterBitsMask())
             throw new IllegalArgumentException("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
         if(node < 0L || node > idMeta.getNodeBitsMask())
@@ -69,7 +69,7 @@ public class IdResolver implements Generator, Extractor<Id, Long> {
         return this._generate(id);
     }
 
-    private Long _generate(Id id) {
+    private long _generate(Id id) {
         long ret = 0;
         ret |= id.getNode();
         ret |= id.getCluster() << idMeta.getClusterBitsStartPos();

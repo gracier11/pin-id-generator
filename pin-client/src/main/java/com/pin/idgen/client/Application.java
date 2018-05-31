@@ -20,7 +20,7 @@ public class Application {
     public static void main(String[] args) {
         AbstractApplicationContext applicationContext = (AbstractApplicationContext) SpringApplication.run(Application.class, args);
 
-        IdGenRpc idGenRpc = (IdGenRpc) applicationContext.getBean("idGenRpc");
+        IdGenRpc idGenRpc = (IdGenRpc) applicationContext.getBean("idGenerator");
         long id = idGenRpc.generateId();
         Id _id = idGenRpc.extract(id);
         System.out.println(id);

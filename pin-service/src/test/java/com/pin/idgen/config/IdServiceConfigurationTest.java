@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IdServiceConfigurationTest {
 
     @Autowired
-    private IdGenRpc idService;
+    private IdGenRpc idGenRpc;
 
     @Test
     public void testConfiguration() throws Exception {
-        Assert.assertNotNull(idService);
+        Assert.assertNotNull(idGenRpc);
     }
 
 }

@@ -14,10 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class IdServiceTest {
+public class IdGenRpcTest {
 
     @Autowired
-    private IdGenRpc idService;
+    private IdGenRpc idGenRpc;
 
     @Autowired
     private IdMeta idMeta;
@@ -26,8 +26,8 @@ public class IdServiceTest {
     public void testGenerate() {
         long clusterId = 10, nodeId = 10;
         long timestamp = TimeUtils.currentTimeSeconds();
-        long id = idService.generateId(clusterId, nodeId);
-        Id ido = idService.extract(id);
+        long id = idGenRpc.generateId(clusterId, nodeId);
+        Id ido = idGenRpc.extract(id);
         Assert.assertEquals(clusterId, ido.getCluster());
         Assert.assertEquals(nodeId, ido.getNode());
         Assert.assertTrue(ido.getTimestamp() >= timestamp);
@@ -37,34 +37,34 @@ public class IdServiceTest {
     public void testCluster() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idService.generateId(-1, 0);
+        idGenRpc.generateId(-1, 0);
 
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idService.generateId(idMeta.getClusterBitsMask() + 1, 0);
+        idGenRpc.generateId(idMeta.getClusterBitsMask() + 1, 0);
 
         thrown.expect(Test.None.class);
-        idService.generateId(0, 0);
+        idGenRpc.generateId(0, 0);
 
         thrown.expect(Test.None.class);
-        idService.generateId(idMeta.getClusterBitsMask(), 0);
+        idGenRpc.generateId(idMeta.getClusterBitsMask(), 0);
     }
 
     @Test
     public void testNode() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idService.generateId(0, -1);
+        idGenRpc.generateId(0, -1);
 
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idService.generateId(0, idMeta.getNodeBitsMask() + 1);
+        idGenRpc.generateId(0, idMeta.getNodeBitsMask() + 1);
 
         thrown.expect(Test.None.class);
-        idService.generateId(0, 0);
+        idGenRpc.generateId(0, 0);
 
         thrown.expect(Test.None.class);
-        idService.generateId(0, idMeta.getNodeBitsMask());
+        idGenRpc.generateId(0, idMeta.getNodeBitsMask());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class IdServiceTest {
                     for (int j = 0; j < 10000; j++) {
                         long t1 = System.nanoTime();
 
-                        idService.generateId();
+                        idGenRpc.generateId();
 
                         long t = System.nanoTime() - t1;
 
