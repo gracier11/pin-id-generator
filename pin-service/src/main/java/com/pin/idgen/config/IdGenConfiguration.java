@@ -28,7 +28,9 @@ public class IdGenConfiguration {
     @Bean
     public CuratorFramework curatorZkClient() {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        return CuratorFrameworkFactory.newClient(zookeeperProperties().getUrl(), retryPolicy);
+        CuratorFramework curatorFramework = CuratorFrameworkFactory.newClient(zookeeperProperties().getUrl(), retryPolicy);
+        curatorFramework.start();
+        return curatorFramework;
     }
 
     @Bean

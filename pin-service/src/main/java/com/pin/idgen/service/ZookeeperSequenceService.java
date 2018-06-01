@@ -36,7 +36,6 @@ public class ZookeeperSequenceService implements SequenceService {
         lock.lock();
         try {
             if(cache.isEmpty()) {
-                zkClient.start();
                 try {
                     Stat stat = zkClient.checkExists().forPath(path);
                     if (stat == null) {
@@ -45,16 +44,14 @@ public class ZookeeperSequenceService implements SequenceService {
                         byte[] data = zkClient.getData().forPath(path);
                         currentSeq = ByteUtils.bytesToLong(data);
                         nextSeq = currentSeq + THRESHOLD;
-                        logger.info("currentSeq:{} nextSeq:{}", currentSeq, nextSeq);
                         zkClient.setData().forPath(path, ByteUtils.longToBytes(nextSeq));
                     }
+                    logger.info("currentSeq:{} nextSeq:{}", currentSeq, nextSeq);
                     for (long i = currentSeq; i < nextSeq; i++) {
                         cache.offer(i);
                     }
                 } catch (Exception e) {
                     logger.error("获取序号报错", e);
-                } finally {
-                    zkClient.close();
                 }
             }
         } finally {
