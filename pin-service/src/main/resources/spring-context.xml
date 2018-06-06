@@ -27,6 +27,6 @@
     <dubbo:provider timeout="${dubbo.provider.timeout}" />
     <!--<dubbo:monitor protocol="registry" />-->
 
-    <dubbo:service interface="com.pin.idgen.rpc.api.IdGenRpc" ref="idGenRpc" retries="0"/>
-    <dubbo:service interface="com.pin.idgen.rpc.api.SequenceRpc" ref="sequenceRpc" retries="0"/>
+    <dubbo:service interface="com.pin.idgen.rpc.api.IdGenRpcService" ref="idGenRpc" retries="0"/>
+    <dubbo:service interface="com.pin.idgen.rpc.api.SequenceRpcService" ref="sequenceRpc" retries="0"/>
 </beans>

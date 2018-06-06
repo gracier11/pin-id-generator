@@ -2,11 +2,9 @@ package com.pin.idgen.rpc.api;
 
 import com.pin.idgen.rpc.api.bean.Id;
 
-public interface IdGenRpc {
+public interface IdGenRpcService {
 
-    long generateId();
-
-    long generateId(long cluster, long node);
+    long generate(long cluster, long node);
 
     Id extract(long id);
 }

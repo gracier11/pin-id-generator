@@ -1,25 +1,19 @@
 package com.pin.idgen.rpc;
 
 import com.pin.idgen.core.IdResolver;
-import com.pin.idgen.rpc.api.IdGenRpc;
+import com.pin.idgen.rpc.api.IdGenRpcService;
 import com.pin.idgen.rpc.api.bean.Id;
-import org.springframework.stereotype.Component;
 
-public class IdGenRpcProvider implements IdGenRpc {
+public class IdGenRpcServiceProvider implements IdGenRpcService {
 
     private IdResolver idResolver;
 
-    public IdGenRpcProvider(IdResolver idResolver) {
+    public IdGenRpcServiceProvider(IdResolver idResolver) {
         this.idResolver = idResolver;
     }
 
     @Override
-    public long generateId() {
-        return generateId(0L, 0L);
-    }
-
-    @Override
-    public long generateId(long cluster, long node) {
+    public long generate(long cluster, long node) {
         return idResolver.generate(cluster, node);
     }
 

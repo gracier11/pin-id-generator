@@ -21,5 +21,5 @@
     <dubbo:consumer timeout="${dubbo.consumer.timeout}" />
     <!--<dubbo:monitor protocol="registry" />-->
 
-    <dubbo:reference id="idGenerator" interface="com.pin.idgen.rpc.api.IdGenRpc" />
+    <dubbo:reference id="idGenerator" interface="com.pin.idgen.rpc.api.IdGenRpcService" />
 </beans>

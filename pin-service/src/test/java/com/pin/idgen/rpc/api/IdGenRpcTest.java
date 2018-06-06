@@ -1,8 +1,8 @@
 package com.pin.idgen.rpc.api;
 
 import com.pin.idgen.bean.IdMeta;
-import com.pin.idgen.util.TimeUtils;
 import com.pin.idgen.rpc.api.bean.Id;
+import com.pin.idgen.util.TimeUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IdGenRpcTest {
 
     @Autowired
-    private IdGenRpc idGenRpc;
+    private IdGenRpcService idGenRpc;
 
     @Autowired
     private IdMeta idMeta;
@@ -26,7 +26,7 @@ public class IdGenRpcTest {
     public void testGenerate() {
         long clusterId = 10, nodeId = 10;
         long timestamp = TimeUtils.currentTimeSeconds();
-        long id = idGenRpc.generateId(clusterId, nodeId);
+        long id = idGenRpc.generate(clusterId, nodeId);
         Id ido = idGenRpc.extract(id);
         Assert.assertEquals(clusterId, ido.getCluster());
         Assert.assertEquals(nodeId, ido.getNode());
@@ -37,38 +37,40 @@ public class IdGenRpcTest {
     public void testCluster() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idGenRpc.generateId(-1, 0);
+        idGenRpc.generate(-1, 0);
 
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idGenRpc.generateId(idMeta.getClusterBitsMask() + 1, 0);
+        idGenRpc.generate(idMeta.getClusterBitsMask() + 1, 0);
 
         thrown.expect(Test.None.class);
-        idGenRpc.generateId(0, 0);
+        idGenRpc.generate(0, 0);
 
         thrown.expect(Test.None.class);
-        idGenRpc.generateId(idMeta.getClusterBitsMask(), 0);
+        idGenRpc.generate(idMeta.getClusterBitsMask(), 0);
     }
 
     @Test
     public void testNode() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idGenRpc.generateId(0, -1);
+        idGenRpc.generate(0, -1);
 
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idGenRpc.generateId(0, idMeta.getNodeBitsMask() + 1);
+        idGenRpc.generate(0, idMeta.getNodeBitsMask() + 1);
 
         thrown.expect(Test.None.class);
-        idGenRpc.generateId(0, 0);
+        idGenRpc.generate(0, 0);
 
         thrown.expect(Test.None.class);
-        idGenRpc.generateId(0, idMeta.getNodeBitsMask());
+        idGenRpc.generate(0, idMeta.getNodeBitsMask());
     }
 
     @Test
     public void testPerformance() throws InterruptedException {
+        final long cluster = 0L;
+        final long node = 0L;
         final long[][] times = new long[100][10000];
 
         Thread[] threads = new Thread[100];
@@ -80,7 +82,7 @@ public class IdGenRpcTest {
                     for (int j = 0; j < 10000; j++) {
                         long t1 = System.nanoTime();
 
-                        idGenRpc.generateId();
+                        idGenRpc.generate(cluster, node);
 
                         long t = System.nanoTime() - t1;
 

@@ -1,6 +1,6 @@
 package com.pin.idgen.client;
 
-import com.pin.idgen.rpc.api.IdGenRpc;
+import com.pin.idgen.rpc.api.IdGenRpcService;
 import com.pin.idgen.rpc.api.bean.Id;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,8 @@ public class Application {
     public static void main(String[] args) {
         AbstractApplicationContext applicationContext = (AbstractApplicationContext) SpringApplication.run(Application.class, args);
 
-        IdGenRpc idGenRpc = (IdGenRpc) applicationContext.getBean("idGenerator");
-        long id = idGenRpc.generateId();
+        IdGenRpcService idGenRpc = (IdGenRpcService) applicationContext.getBean("idGenerator");
+        long id = idGenRpc.generate(0, 0);
         Id _id = idGenRpc.extract(id);
         System.out.println(id);
         System.out.println(_id);
