@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.pin</groupId>
             <artifactId>pin-rpc-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <!-- spring -->
         <dependency>

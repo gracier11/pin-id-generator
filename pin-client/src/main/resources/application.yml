@@ -12,20 +12,13 @@ spring:
 logging:
   level:
     root: INFO
-  file: /opt/app/log/pin_idgen_service.log
-zookeeper:
-  url: 127.0.0.1:2181
+  file: /opt/app/log/pin_idgen_client.log
 dubbo:
   registry:
     protocol: zookeeper
     address: 127.0.0.1:2181
     check: false
     timeout: 2000
-    file: /opt/app/.dubbo/pin-idgen-service.cache
-  protocol:
-    name: dubbo
-    host: 127.0.0.1
-    port: 20880
-    threads: 100
-  provider:
+    file: /opt/app/.dubbo/pin-idgen-client.cache
+  consumer:
     timeout: 1000
