@@ -13,66 +13,70 @@ import org.junit.rules.ExpectedException;
 
 public class ClusterIdGeneratorTest {
 
-    private IdMeta idMeta;
-    private IdResolver idResolver;
-    private IdGenerator idGenerator;
+    private ClusterIdGenerator idGenerator;
+
+    private long cluster = 10;
+    private long node = 10;
 
     @Before
     public void setUp() {
-        idMeta = new ClusterIdMeta();
-        idResolver = new IdResolver(idMeta);
-        idGenerator = new DefaultIdGenerator(idResolver);
+        idGenerator = new ClusterIdGenerator(cluster, node);
     }
 
     @Test
     public void testGenerate() {
-        long clusterId = 10, nodeId = 10;
         long timestamp = TimeUtils.currentTimeSeconds();
-        long id = idGenerator.generate(clusterId, nodeId);
+        long id = idGenerator.generate();
         Id ido = idGenerator.extract(id);
-        Assert.assertEquals(clusterId, ido.getCluster());
-        Assert.assertEquals(nodeId, ido.getNode());
+        Assert.assertEquals(node, ido.getCluster());
+        Assert.assertEquals(node, ido.getNode());
         Assert.assertTrue(ido.getTimestamp() >= timestamp);
     }
 
     @Test
     public void testCluster() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idGenerator.generate(-1, 0);
+        thrown.expectMessage("cluster must be positive and can't be greater than " + this.idGenerator.getIdMeta().getClusterBitsMask());
+        idGenerator = new ClusterIdGenerator(-1, 0);
+        idGenerator.generate();
 
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("cluster must be positive and can't be greater than " + idMeta.getClusterBitsMask());
-        idGenerator.generate(idMeta.getClusterBitsMask() + 1, 0);
+        thrown.expectMessage("cluster must be positive and can't be greater than " + this.idGenerator.getIdMeta().getClusterBitsMask());
+        idGenerator = new ClusterIdGenerator(this.idGenerator.getIdMeta().getClusterBitsMask() + 1, 0);
+        idGenerator.generate();
 
         thrown.expect(Test.None.class);
-        idGenerator.generate(0, 0);
+        idGenerator = new ClusterIdGenerator(cluster, node);
+        idGenerator.generate();
 
         thrown.expect(Test.None.class);
-        idGenerator.generate(idMeta.getClusterBitsMask(), 0);
+        idGenerator = new ClusterIdGenerator(this.idGenerator.getIdMeta().getClusterBitsMask(), 0);
+        idGenerator.generate();
     }
 
     @Test
     public void testNode() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idGenerator.generate(0, -1);
+        thrown.expectMessage("node must be positive and can't be greater than " + this.idGenerator.getIdMeta().getNodeBitsMask());
+        idGenerator = new ClusterIdGenerator(0, -1);
+        idGenerator.generate();
 
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("node must be positive and can't be greater than " + idMeta.getNodeBitsMask());
-        idGenerator.generate(0, idMeta.getNodeBitsMask() + 1);
+        thrown.expectMessage("node must be positive and can't be greater than " + this.idGenerator.getIdMeta().getNodeBitsMask());
+        idGenerator = new ClusterIdGenerator(0, this.idGenerator.getIdMeta().getNodeBitsMask() + 1);
+        idGenerator.generate();
 
         thrown.expect(Test.None.class);
-        idGenerator.generate(0, 0);
+        idGenerator = new ClusterIdGenerator(0, 0);
+        idGenerator.generate();
 
         thrown.expect(Test.None.class);
-        idGenerator.generate(0, idMeta.getNodeBitsMask());
+        idGenerator = new ClusterIdGenerator(0, this.idGenerator.getIdMeta().getNodeBitsMask());
+        idGenerator.generate();
     }
 
     @Test
     public void testPerformance() throws InterruptedException {
-        final long clusterId = 0L;
-        final long nodeId = 0L;
         final long[][] times = new long[100][10000];
 
         Thread[] threads = new Thread[100];
@@ -84,7 +88,7 @@ public class ClusterIdGeneratorTest {
                     for (int j = 0; j < 10000; j++) {
                         long t1 = System.nanoTime();
 
-                        idGenerator.generate(clusterId, nodeId);
+                        idGenerator.generate();
 
                         long t = System.nanoTime() - t1;
 

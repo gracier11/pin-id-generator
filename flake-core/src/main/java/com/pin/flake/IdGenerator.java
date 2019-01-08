@@ -6,7 +6,5 @@ public interface IdGenerator {
 
     long generate();
 
-    long generate(long cluster, long node);
-
     Id extract(long id);
 }

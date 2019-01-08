@@ -49,7 +49,11 @@ public class IpUtils {
 
     public static String getLocalHostAddress() {
         try {
-            return InetAddress.getLocalHost().getHostAddress().toString();
+            String ip = InetAddress.getLocalHost().getHostAddress().toString();
+            if(logger.isDebugEnabled()) {
+                logger.debug("ip of local host:{}", ip);
+            }
+            return ip;
         } catch (UnknownHostException e) {
             logger.error("获取本机ip地址失败", e);
         }
