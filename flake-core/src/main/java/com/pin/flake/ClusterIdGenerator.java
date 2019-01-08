@@ -13,6 +13,8 @@ import java.util.Properties;
 
 public class ClusterIdGenerator implements IdGenerator {
 
+    private static final String DEFAULT_PROPERTIES = "flake.properties";
+
     private IdMeta idMeta;
 
     private IdResolver idResolver;
@@ -28,9 +30,58 @@ public class ClusterIdGenerator implements IdGenerator {
         this.node = node;
     }
 
+    public ClusterIdGenerator() {
+        this.idMeta = new ClusterIdMeta();
+        this.idResolver = new IdResolver(this.idMeta);
+        String propertiesFile = "/opt/" + DEFAULT_PROPERTIES;
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.indexOf("windows") >= 0) {
+            propertiesFile = "C:" + propertiesFile;
+        }
+        Properties properties = new Properties();
+        InputStream in = null;
+        try {
+            in = new FileInputStream(propertiesFile);
+            properties.load(in);
+            load(properties);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {}
+            }
+        }
+    }
+
+    public ClusterIdGenerator(String propertiesFile) {
+        this.idMeta = new ClusterIdMeta();
+        this.idResolver = new IdResolver(this.idMeta);
+        Properties properties = new Properties();
+        InputStream in = null;
+        try {
+            in = new FileInputStream(propertiesFile);
+            properties.load(in);
+            load(properties);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {}
+            }
+        }
+    }
+
     public ClusterIdGenerator(Properties properties) {
         this.idMeta = new ClusterIdMeta();
         this.idResolver = new IdResolver(this.idMeta);
+        load(properties);
+    }
+
+    private void load(Properties properties) {
         String cluster = properties.getProperty("cluster");
         if(cluster == null || "".equals(cluster.trim())) {
             throw new IllegalArgumentException("key:cluster not found");
@@ -41,35 +92,6 @@ public class ClusterIdGenerator implements IdGenerator {
             throw new IllegalArgumentException("key:node not found");
         }
         this.node = Long.valueOf(node);
-    }
-
-    public ClusterIdGenerator(File file) {
-        this.idMeta = new ClusterIdMeta();
-        this.idResolver = new IdResolver(this.idMeta);
-        Properties properties = new Properties();
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-            properties.load(in);
-            String cluster = properties.getProperty("cluster");
-            if(cluster == null || "".equals(cluster.trim())) {
-                throw new IllegalArgumentException("key:cluster not found");
-            }
-            this.cluster = Long.valueOf(cluster);
-            String node = properties.getProperty("node");
-            if(node == null || "".equals(node.trim())) {
-                throw new IllegalArgumentException("key:node not found");
-            }
-            this.node = Long.valueOf(node);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if(in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {}
-            }
-        }
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.pin.flake;
 
-import com.pin.flake.core.ClusterIdMeta;
 import com.pin.flake.core.Id;
-import com.pin.flake.core.IdMeta;
-import com.pin.flake.core.IdResolver;
 import com.pin.flake.utils.TimeUtils;
 import org.junit.Assert;
 import org.junit.Before;
