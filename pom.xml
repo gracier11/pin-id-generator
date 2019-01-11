@@ -8,8 +8,6 @@
     <modules>
         <module>flake-core</module>
         <module>flake-spring-boot-starter</module>
-        <module>flake-core</module>
-        <module>flake-spring-boot-starter</module>
     </modules>
     <packaging>pom</packaging>
 
